@@ -1,0 +1,15 @@
+Environment: Intel N95; Docker CPU quota 1, memory limit 3 GiB; synthetic temporary HOME only.
+$ python3 Scripts/fixtures/cost_cache_upgrade_proof.py /tmp/codexbar-proof-baseline/CodexBarCLI /work/.build/release/CodexBarCLI
+exit 0; all assertions passed
+
+Released baseline: CodexBar 0.76.0; parser 3f88178bf03ad704, user_version 52615333.
+Candidate: parser b952c48950b82f8f, user_version 64889146.
+Native database inode retained; all 11 non-meta SQLite tables byte-for-byte identical at adoption.
+This includes usage rows, aggregates, accumulators, file checkpoints, and scan_metadata with retained report.
+Unfinished checkpoint: parsed_bytes 268435456; nonempty resume payload 349749 bytes preserved.
+Pi pricing fingerprint changed and refresh timestamp advanced; cached files/contributions/root fingerprint preserved.
+CLI-written settings file byte-for-byte identical; public config dump identical.
+Public cost reports equal except updatedAt: 160 tokens before and after adoption.
+After appending native and Pi requests, candidate --refresh resumes the checkpoint to EOF at 269484140 bytes.
+Native usage rows: 1 -> 2. Pi tokens: 50 -> 85. Combined public cost report: 160 -> 250 tokens.
+Exact binary hashes and retained-report/settings digests are in identified-cache-upgrade-proof.json.
