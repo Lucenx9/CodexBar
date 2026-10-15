@@ -310,6 +310,19 @@ provider-toggle actions under test on the production setter; the fixture helper 
 
 ### Cost scanner CPU regressions
 
+Cost marker searches compare exact UTF-8 bytes with bounded libc `memchr` and `memcmp` calls.
+Both buffers remain borrowed during the search, and candidate starts stop at the last position
+where the complete needle fits. Empty needles retain Foundation's `Data.range(of:)` behavior.
+`CostUsageAsciiSearchTests` compares results with Foundation, including nonzero-index data views,
+binary bytes, Unicode, repeated prefixes, and matches at the buffer boundary.
+`CodexIdentifiedScanTests` covers large synthetic messages, malformed-data notices, and model attribution.
+JSON decoding, parser classification, and resumable scan state keep their existing paths.
+`python3 Scripts/fixtures/identified_scan_proof.py .build/debug/CodexBarCLI` measures the public CLI
+against a temporary synthetic history and asserts its request count, tokens, and completeness.
+Run baseline and candidate binaries with the same build configuration and an idle build queue;
+fixture generation is outside the timed interval. This does not measure SSH authentication or idle-app CPU.
+The parser-hash change retains `3f88178bf03ad704` as a tested compatible native-store predecessor.
+
 `CostUsageJsonl` finds complete physical LF spans with bounded libc `memchr` on Darwin, Glibc, and
 Musl, using the same span algorithm with scalar LF search elsewhere. Borrowed pointers stay inside
 the current `withUnsafeBytes` call; search counts and distances fit the existing 256 KiB read chunk.

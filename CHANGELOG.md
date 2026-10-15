@@ -2,6 +2,10 @@
 
 ## 0.76.1 — Unreleased
 
+### Fixed
+
+- Cost history: scan large Codex and Claude message bodies faster, reducing the time needed for identified Codex exports over SSH.
+
 ## 0.76.0 — 2026-10-15
 
 ### Highlights
