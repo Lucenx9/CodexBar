@@ -1405,24 +1405,12 @@ extension Data {
 
 extension [Int] {
     subscript(safe index: Int) -> Int? {
-        if index < 0 {
-            return nil
-        }
-        if index >= self.count {
-            return nil
-        }
-        return self[index]
+        self.indices.contains(index) ? self[index] : nil
     }
 }
 
 extension [UInt8] {
     subscript(safe index: Int) -> UInt8? {
-        if index < 0 {
-            return nil
-        }
-        if index >= self.count {
-            return nil
-        }
-        return self[index]
+        self.indices.contains(index) ? self[index] : nil
     }
 }

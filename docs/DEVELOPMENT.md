@@ -315,21 +315,8 @@ Both buffers remain borrowed during the search, and candidate starts stop at the
 where the complete needle fits. Empty needles retain Foundation's `Data.range(of:)` behavior.
 `CostUsageAsciiSearchTests` compares results with Foundation, including nonzero-index data views,
 binary bytes, Unicode, repeated prefixes, and matches at the buffer boundary.
-`CodexIdentifiedScanTests` covers large synthetic messages, malformed-data notices, and model attribution.
 JSON decoding, parser classification, and resumable scan state keep their existing paths.
-`python3 Scripts/fixtures/identified_scan_proof.py .build/debug/CodexBarCLI` measures the public CLI
-against a temporary synthetic history and asserts its request count, tokens, and completeness.
-Run baseline and candidate binaries with the same build configuration and an idle build queue;
-fixture generation is outside the timed interval. This does not measure SSH authentication or idle-app CPU.
 The parser-hash change retains `3f88178bf03ad704` as a tested compatible native-store predecessor.
-
-`python3 Scripts/fixtures/cost_cache_upgrade_proof.py /path/to/0.76.0/CodexBarCLI /path/to/candidate/CodexBarCLI`
-checks the upgrade through the public CLI. Run it in an isolated container to exclude live Pi process selectors.
-Keep the released baseline's `VERSION` and resource bundle beside its executable.
-The script uses an isolated home, CLI-written settings, native and Pi fixtures, and a temporary
-257 MiB message to create a real 256 MiB checkpoint and retained report. It checks native tables byte for byte
-at fingerprint adoption, Pi repricing refresh, settings and report equality, then resumed scanning and appended
-native/Pi requests. The recorded container run uses no existing user cache and does not change the installed CLI.
 
 `CostUsageJsonl` finds complete physical LF spans with bounded libc `memchr` on Darwin, Glibc, and
 Musl, using the same span algorithm with scalar LF search elsewhere. Borrowed pointers stay inside

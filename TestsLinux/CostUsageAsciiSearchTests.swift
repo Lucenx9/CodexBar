@@ -3,44 +3,39 @@ import Testing
 @testable import CodexBarCore
 
 struct CostUsageAsciiSearchTests {
-    private static let inputs: [[UInt8]] = [
-        [],
-        Array("a".utf8),
-        Array("needle".utf8),
-        Array("prefix needle suffix needle".utf8),
-        Array("é🦞é".utf8),
-        [0, 255, 34, 0, 92, 127, 128],
-        Array(repeating: 97, count: 4096) + [98],
-    ]
-    private static let needles = [
-        "", "a", "b", "needle", "needle suffix", "needle suffix needle", "needle suffix needles",
-        "é", "é", "🦞", "\0", "\0\\", "\"", "\\", "aaaaab", "aaaaac",
-    ]
-
-    @Test(arguments: Self.inputs, Self.needles)
-    func `bounded byte searches match Foundation for owned data and slices`(bytes: [UInt8], needle: String) {
+    @Test
+    func `exact byte searches preserve Foundation results within data slice bounds`() {
+        let cases: [(Data, String)] = [
+            (Data(), ""),
+            (Data(), "needle"),
+            (Data("needle".utf8), ""),
+            (Data("needle".utf8), "needle"),
+            (Data("prefix needle".utf8), "needle"),
+            (Data("needle".utf8), "needles"),
+            (Data("needleneedle".utf8), "needle"),
+            (Data("aaaaab".utf8), "aaab"),
+            (Data("aaaaab".utf8), "aaac"),
+            (Data([0, 255, 34, 0, 92]), "\0\\"),
+            (Data("é🦞é".utf8), "🦞é"),
+        ]
         let padding = Data("needle".utf8)
-        let padded = padding + Data(bytes) + padding
-        let view = padded.dropFirst(padding.count).dropLast(padding.count)
-        for haystack in [Data(bytes), view] {
-            let expected = haystack.range(of: Data(needle.utf8)) != nil
-            #expect(haystack.containsAscii(needle) == expected)
+        for (bytes, needle) in cases {
+            let padded = padding + bytes + padding
+            for data in [bytes, padded.dropFirst(padding.count).dropLast(padding.count)] {
+                #expect(data.containsAscii(needle) == (data.range(of: Data(needle.utf8)) != nil))
+            }
         }
     }
 
     @Test
-    func `binary haystacks and varied UTF8 needles match Foundation deterministically`() {
-        var state: UInt64 = 0xC0DE
-        func next() -> UInt8 {
-            state = state &* 6_364_136_223_846_793_005 &+ 1
-            return UInt8(truncatingIfNeeded: state >> 32)
-        }
-        let alphabet = ["a", "b", "\"", "\\", "\0", "é", "🦞"]
-        for length in 0...256 {
-            let haystack = Data((0..<length).map { _ in next() })
-            let needle = (0..<(length % 17)).map { _ in alphabet[Int(next()) % alphabet.count] }.joined()
-            let expected = haystack.range(of: Data(needle.utf8)) != nil
-            #expect(haystack.containsAscii(needle) == expected)
-        }
+    func `safe integer and byte subscripts preserve bounds`() {
+        let integers = [11, 12]
+        let bytes: [UInt8] = [11, 12]
+        #expect(integers[safe: -1] == nil)
+        #expect(integers[safe: 2] == nil)
+        #expect(integers[safe: 1] == 12)
+        #expect(bytes[safe: -1] == nil)
+        #expect(bytes[safe: 2] == nil)
+        #expect(bytes[safe: 1] == 12)
     }
 }

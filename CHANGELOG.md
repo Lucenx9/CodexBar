@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- Cost history: scan large Codex and Claude message bodies faster, reducing the time needed for identified Codex exports over SSH.
+- Cost history: reduce CPU spent scanning large Codex and Claude message bodies without changing parsed usage. (#4552) Thanks @Lucenx9!
 
 ## 0.76.0 — 2026-10-15
 
@@ -27,6 +27,7 @@
 
 ### Fixed
 
+- Dock: stop rescanning windows on every update pass while preserving Settings and scheduled update dialogs (#4516, #4524). Thanks @harjothkhara and @Leen15!
 - Settings: preserve config files and legacy credentials after read errors during startup, account reloads, and later saves, keep optional Codex credit lanes in the settings catalogue without changing previews, and distinguish real monthly quotas from credit limits (#4509). Thanks @emanuelst!
 - CLI probes: preserve buffered terminal output from fast-exiting commands instead of intermittently returning empty results (refs #4505).
 - Helmcode: import Cloud sessions from the API host or parent domain while preserving older cached sessions, tenant isolation, and manual cookies (#4492). Thanks @aran159!
@@ -34,6 +35,7 @@
 - Plugins: release temporary objects between QuickJS refreshes and free retired JavaScriptCore contexts and completed runtimes (#4512, #4486).
 - Claude: show the winning OAuth account’s email with a cached background profile lookup; slow or failed identity requests never delay quota refreshes (#4493). Thanks @flutterrausch!
 - Droid: import sessions from Firefox Beta, Developer Edition, and Nightly, and continue past unavailable browser stores (#4461). Thanks @vincent-peng!
+- Qwen Cloud: treat a Team summary with an empty `Data` object as no Team subscription, so Individual-only accounts no longer show "Team usage unavailable" (#4527, #4525). Thanks @harjothkhara and @mvicari!
 
 ## 0.75.0 — 2026-10-13
 
