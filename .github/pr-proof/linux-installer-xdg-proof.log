@@ -1,0 +1,33 @@
+Real payload proof: stable v0.78.0 -> PR CI artifact at ba54a38
+CLI: CodexBar 0.78.0
+Current packaged installer matches PR source byte-for-byte
+CASE XDG_CONFIG_HOME='', XDG_DATA_HOME=''
+  install v0.78.0 with default XDG directories and --no-autostart
+  stable binary: codexbar-linux 0.78.0
+  real app IPC: quotaDisplay=used; autostart enabled=false
+  run unchanged v0.78.0 installer with invalid XDG overrides:
+    misplaced files: ["applications/com.steipete.CodexBar.desktop", "autostart/com.steipete.CodexBar.desktop", "codexbar/linux.json", "icons/hicolor/scalable/apps/codexbar.svg"]
+  upgrade using PR CI archive installer + real desktop payload:
+    Installed <PROOF_ROOT>/empty-h66k3s8y/home/.local/bin/codexbar-linux
+Run codexbar-linux --settings, or open CodexBar from the application launcher.
+  preferences semantically unchanged; backup byte-for-byte matches; Hidden=true preserved
+  installed HOME paths: [".config/codexbar/linux.json", ".config/autostart/com.steipete.CodexBar.desktop", ".local/share/applications/com.steipete.CodexBar.desktop", ".local/share/icons/hicolor/scalable/apps/codexbar.svg"]
+  installer working directory: empty
+  upgraded binary: codexbar-linux 0.0.0-ci
+  real app IPC: quotaDisplay=used; autostart enabled=false
+  PASS
+CASE XDG_CONFIG_HOME='relative', XDG_DATA_HOME='relative'
+  install v0.78.0 with default XDG directories and --no-autostart
+  stable binary: codexbar-linux 0.78.0
+  real app IPC: quotaDisplay=used; autostart enabled=false
+  run unchanged v0.78.0 installer with invalid XDG overrides:
+    misplaced files: ["relative/applications/com.steipete.CodexBar.desktop", "relative/autostart/com.steipete.CodexBar.desktop", "relative/codexbar/linux.json", "relative/icons/hicolor/scalable/apps/codexbar.svg"]
+  upgrade using PR CI archive installer + real desktop payload:
+    Installed <PROOF_ROOT>/relative-4f6faynu/home/.local/bin/codexbar-linux
+Run codexbar-linux --settings, or open CodexBar from the application launcher.
+  preferences semantically unchanged; backup byte-for-byte matches; Hidden=true preserved
+  installed HOME paths: [".config/codexbar/linux.json", ".config/autostart/com.steipete.CodexBar.desktop", ".local/share/applications/com.steipete.CodexBar.desktop", ".local/share/icons/hicolor/scalable/apps/codexbar.svg"]
+  installer working directory: empty
+  upgraded binary: codexbar-linux 0.0.0-ci
+  real app IPC: quotaDisplay=used; autostart enabled=false
+  PASS
