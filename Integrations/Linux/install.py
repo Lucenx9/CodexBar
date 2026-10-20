@@ -36,6 +36,21 @@ def quoted(path):
     return '"' + text + '"'
 
 
+def autostart_is_disabled(path):
+    if not path.exists():
+        return False
+    section = None
+    for line in path.read_text(encoding='utf-8').splitlines():
+        line = line.strip()
+        if line.startswith('[') and line.endswith(']'):
+            section = line[1:-1]
+        elif section == 'Desktop Entry':
+            key, separator, value = line.partition('=')
+            if separator and key.strip() == 'Hidden':
+                return value.strip() == 'true'
+    return False
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--binary', type=Path, default=REPO / ('bin/codexbar-linux' if (REPO / 'bin/codexbar-linux').exists() else '.local/linux-build/codexbar-linux'))
@@ -108,7 +123,7 @@ Exec={quoted(destination)} --spending
 '''
     atomic(data / f'applications/{APP_ID}.desktop', launcher.encode(), 0o644, follow_links=True)
     startup_path = config / f'autostart/{APP_ID}.desktop'
-    startup_disabled = args.no_autostart or (startup_path.exists() and 'Hidden=true' in startup_path.read_text(encoding='utf-8'))
+    startup_disabled = args.no_autostart or autostart_is_disabled(startup_path)
     startup = f'''[Desktop Entry]
 Type=Application
 Name=CodexBar
