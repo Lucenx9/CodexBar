@@ -16,25 +16,32 @@ class InstallTests(unittest.TestCase):
                 config = root / 'config' if value == 'absolute' else home / '.config'
                 data = root / 'data' if value == 'absolute' else home / '.local/share'
                 preferences = config / 'codexbar/linux.json'
-                preferences.parent.mkdir(parents=True)
-                preferences.write_text(json.dumps({'provider': 'claude', 'refreshSeconds': 900}))
-                environment = dict(os.environ, HOME=str(home))
-                for key, directory in [('XDG_CONFIG_HOME', config), ('XDG_DATA_HOME', data)]:
-                    environment.pop(key, None)
+                environment = {'PATH': os.environ['PATH'], 'HOME': str(home)}
+                for key, directory in [('XDG_CONFIG_HOME', config), ('XDG_DATA_HOME', data),
+                                       ('XDG_BIN_HOME', root / 'bin')]:
                     if value is not None:
                         environment[key] = str(directory) if value == 'absolute' else value
                 script = Path(__file__).resolve().parents[1] / 'Linux/install.py'
-                result = subprocess.run(['python3', str(script), '--binary', '/usr/bin/true',
-                                         '--cli', '/usr/bin/true'], cwd=working, env=environment,
-                                        capture_output=True, text=True, timeout=10)
-                self.assertEqual(result.returncode, 0, result.stderr)
+                command = ['python3', str(script), '--binary', '/usr/bin/true', '--cli', '/usr/bin/true']
+                for options in [['--no-autostart'], []]:
+                    result = subprocess.run(command + options, cwd=working, env=environment,
+                                            capture_output=True, text=True, timeout=10)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertTrue(preferences.is_file(), 'Installer ignored the home-directory fallback')
+                    if options:
+                        saved = json.dumps({'provider': 'claude', 'refreshSeconds': 900})
+                        preferences.write_text(saved)
                 self.assertEqual(list(working.iterdir()), [], 'Installer wrote files into its working directory')
                 self.assertEqual(json.loads(preferences.read_text())['provider'], 'claude')
                 self.assertEqual(json.loads(preferences.read_text())['refreshSeconds'], 900)
-                self.assertEqual(len(list(preferences.parent.glob('linux.json.backup-*'))), 1)
-                self.assertTrue((config / 'autostart/com.steipete.CodexBar.desktop').is_file())
+                backups = list(preferences.parent.glob('linux.json.backup-*'))
+                self.assertEqual(len(backups), 1)
+                self.assertEqual(backups[0].read_text(), saved)
+                self.assertIn('Hidden=true', (config / 'autostart/com.steipete.CodexBar.desktop').read_text())
                 self.assertTrue((data / 'applications/com.steipete.CodexBar.desktop').is_file())
                 self.assertTrue((data / 'icons/hicolor/scalable/apps/codexbar.svg').is_file())
+                self.assertEqual((home / '.local/bin/codexbar-linux').read_bytes(), Path('/usr/bin/true').read_bytes())
+                self.assertFalse((root / 'bin').exists())
 
     def test_migration_and_reinstall_preserve_preferences_and_layout(self):
         with tempfile.TemporaryDirectory(prefix='codexbar install ') as temporary:
