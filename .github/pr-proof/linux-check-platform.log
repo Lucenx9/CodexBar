@@ -1,0 +1,51 @@
+Linux make check platform dispatch proof
+Base revision: ad0c5679b73c407db63871f6febe2d9b9dfb319f
+Host: Linux x86_64
+GNU Make 4.4.1
+Fixture: the same regression script runs against the base and patched Makefiles in temporary directories.
+The script invokes real make with stub uname/lint commands; no provider, signing, or Keychain operations run.
+
+BEFORE: bash Scripts/test_make_lint.sh
+
+Linux make check: expected lint-linux, got lint
+Exit status: 1
+
+BEFORE: make -n check lint
+./Scripts/lint.sh lint
+./Scripts/lint.sh lint
+
+AFTER: bash Scripts/test_make_lint.sh
+Make lint platform dispatch and failure propagation tests passed.
+
+Exit status: 0
+
+AFTER: make -n check lint
+./Scripts/lint.sh lint-linux
+./Scripts/lint.sh lint-linux
+
+AFTER regression coverage: Linux/Darwin x check/lint x lint success/failure (8 cases).
+Darwin is simulated with a PATH-local uname stub, not executed on a native macOS host.
+
+Actual end-to-end Linux validation, captured before adding this proof artifact:
+$ make check
+Exit status: 0 (recorded by the parent execution tool)
+./Scripts/lint.sh lint-linux
+Make lint platform dispatch and failure propagation tests passed.
+Swift test sharding tests passed.
+CI path gate tests passed.
+Repository size tests passed.
+shell scripts OK: 57 files
+documentation links OK: 421 local links
+llms index OK: docs/llms.txt
+app/site locales OK: 23 locales, 138 site messages, 106 provider cards
+All matched files use the correct format.
+Done linting! Found 0 violations, 0 serious in 3069 files.
+
+SHA-256 of the validated implementation/test inputs:
+0a5301c675b55ef752c3d7a29a610b95fd09b84bb03146a2851eb83ce7473144  Makefile
+0457f50f125a3e338f5e82406ac64f968d380fd2381a237d1abf11ab975b75dd  Scripts/lint.sh
+0b9f731860885374b6b022fcbc61b13dc90c3891a3eed6143cb9695c7d1c1815  Scripts/test_make_lint.sh
+f84a97ba39059ac1cba402dba1acd613fb524bdbcd00560a8b1a5bc5a547337b  docs/DEVELOPMENT.md
+
+Final implementation review: Grok 4.7, reasoningEffort=high, no findings.
+Full Swift application tests were not rerun for this Make/shell-only change.
