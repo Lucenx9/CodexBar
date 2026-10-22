@@ -33,6 +33,8 @@ def quoted(path):
     text = str(path).replace('%', '%%')
     for character in ['\\', '"', '`', '$']:
         text = text.replace(character, '\\' + character)
+    # Desktop entries decode string escapes before interpreting Exec quoting.
+    text = text.replace('\\', '\\\\')
     return '"' + text + '"'
 
 
