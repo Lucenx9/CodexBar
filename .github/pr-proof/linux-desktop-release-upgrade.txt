@@ -1,0 +1,9 @@
+Official release: codexbar-linux 0.79.0
+v0.79.0 launcher before upgrade: FAIL as expected, GIO rejected Exec
+v0.79.0 installed app loads existing preferences: PASS, CX 60%
+Upgrade: existing preferences, backup, and disabled autostart preserved: PASS
+After upgrade, GIO launcher: PASS, actual installed Qt app, IPC CX 60%
+Actual Usage & Spend window on Xvfb display: PASS
+After upgrade, GIO autostart: PASS, actual installed Qt app, IPC CX 60%
+Final preferences unchanged and Hidden=true: PASS
+No live providers; temporary HOME/XDG paths, official desktop binary, synthetic CLI only.
