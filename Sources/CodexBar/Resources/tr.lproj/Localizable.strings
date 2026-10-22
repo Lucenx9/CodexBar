@@ -151,7 +151,7 @@
 "Local token history is unavailable or incomplete." = "Yerel token geçmişi mevcut değil veya eksik.";
 "Could not add Codex account" = "Codex hesabı eklenemedi";
 "Could not open Terminal for Gemini" = "Gemini için Terminal açılamadı";
-"Could not start claude /login" = "claude /login başlatılamadı";
+"Claude OAuth credentials read failed: CodexBar's Claude OAuth cache is temporarily unavailable in macOS Keychain. Check that the login keychain is unlocked in Keychain Access, then retry Refresh." = "Claude OAuth kimlik bilgileri okunamadı: CodexBar’ın Claude OAuth önbelleği macOS Anahtar Zinciri’nde geçici olarak kullanılamıyor. Anahtar Zinciri Erişimi’nde oturum açma anahtar zincirinin kilidinin açık olduğunu kontrol edip yeniden yenileyin.";
 "Could not start codex login" = "codex login başlatılamadı";
 "Could not switch system account" = "Sistem hesabı değiştirilemedi";
 "Credits" = "Krediler";
@@ -627,7 +627,6 @@
 
 /* Display Pane */
 "menu_bar_style_title" = "Menü çubuğu stili";
-"menu_bar_style_subtitle" = "Menü çubuğu öğesinin nasıl çizileceğini belirler.";
 "menu_bar_inactive_display_contrast_title" = "Etkin olmayan ekranlarda görünürlüğü artır";
 "menu_bar_inactive_display_contrast_subtitle" = "Simge ve ölçümün diğer ekranlarda okunabilir kalması için yüksek kontrastlı işleme kullanır.";
 "menu_bar_style_critters" = "Canavarlar";
@@ -1234,6 +1233,7 @@
 "Password" = "Parola";
 "%@ authentication is disabled." = "%@ kimlik doğrulaması devre dışı.";
 "%@ cookies are disabled." = "%@ çerezleri devre dışı.";
+"%@ is unavailable. Edit the widget to choose a provider." = "%@ kullanılamıyor. Bir sağlayıcı seçmek için widget’ı düzenleyin.";
 "%@ web API access is disabled." = "%@ web API erişimi devre dışı.";
 "Disable %@ dashboard cookie usage." = "%@ panel çerez kullanımını devre dışı bırak.";
 "Keychain access is disabled in Advanced, so browser cookie import is unavailable." = "Anahtar Zinciri erişimi Gelişmiş bölümünde devre dışı bırakıldı, bu nedenle tarayıcı çerezleri içe aktarılamıyor.";
@@ -1298,7 +1298,6 @@
 "Windsurf session JSON bundle" = "Windsurf oturum JSON paketi";
 "Workspace ID" = "Çalışma alanı kimliği";
 "Your StepFun platform password. Used to login and obtain a session token." = "StepFun platform parolanız. Oturum açmak ve oturum tokenı almak için kullanılır.";
-"claude /login exited with status %d." = "claude /login %d durum koduyla sonlandı.";
 "codex login exited with status %d." = "codex login %d durum koduyla sonlandı.";
 "Cookie: …\n\nor paste a cURL capture from the Abacus AI dashboard" = "Çerez: …\n\nveya Abacus AI panelinden bir cURL yakalaması yapıştırın";
 "Cookie: …\n\nor paste the __Secure-next-auth.session-token value" = "Çerez: …\n\nveya __Secure-next-auth.session-token değerini yapıştırın";
@@ -1412,6 +1411,7 @@
 /* Menu bar layout editor */
 "menu_bar_layout_title" = "Düzen";
 "menu_bar_layout_footer" = "Menü çubuğunu düzenlemek için öğeleri sürükleyin. Eklemek için bir öğeye tıklayın; yerleştirilmiş bir öğeyi seçip silmek için Delete tuşuna basın.";
+"menu_bar_layout_footer_requires_icon_and_percent" = "Düzen yalnızca “%@” menü çubuğu stili için geçerlidir. Düzenlemek için yukarıdan bu stili seçin.";
 "menu_bar_layout_group_identity" = "Kimlik";
 "menu_bar_layout_group_usage" = "Kullanım";
 "menu_bar_layout_group_time" = "Zaman";
@@ -1803,6 +1803,7 @@
 "Details for %@" = "%@ için ayrıntılar";
 "EST. %@" = "Tahmini %@";
 "Enable Antigravity provider" = "Antigravity sağlayıcısını etkinleştirin";
+"Enable a provider in CodexBar → Settings → Providers." = "CodexBar → Ayarlar → Sağlayıcılar’da bir sağlayıcıyı etkinleştirin.";
 "Enable account widgets in CodexBar → Settings → Menu → Widgets. Then edit this widget to choose an account." = "CodexBar → Ayarlar → Menü → Widget'lar bölümünde hesap widget'larını etkinleştirin. Daha sonra bir hesap seçmek için bu widget'ı düzenleyin.";
 "Error: %@" = "Hata: %@";
 "Examples: alt+cmd+2, shift+right. Refresh (cmd+r), Settings (cmd+,) and Quit (cmd+q) are reserved." = "Örnekler: alt+cmd+2, shift+right. Yenile (cmd+r), Ayarlar (cmd+,) ve Çık (cmd+q) ayrılmıştır.";
@@ -2017,10 +2018,7 @@
 "Top models:" = "En iyi modeller:";
 "Two quota burn-down charts in one tile." = "Tek bir kutucukta iki Kota yanma grafiği.";
 "Usage & spend come from your console.groq.com browser session automatically. An API key is optional and only adds Enterprise Prometheus metrics." = "Kullanım ve harcama, console.groq.com tarayıcı oturumunuzdan otomatik olarak gelir. API anahtarı isteğe bağlıdır ve yalnızca Enterprise Prometheus Metrik'yi ekler.";
-"Usage data appears after a refresh." = "Kullanım verileri yenileme sonrasında görünür.";
-"Usage data will appear once the app refreshes." = "Uygulama yenilendiğinde kullanım verileri görünecektir.";
 "Usage history chart with recent totals." = "Son toplamları içeren kullanım geçmişi grafiği.";
-"Usage history will appear after a refresh." = "Kullanım geçmişi yenileme sonrasında görünecektir.";
 "Usage limit" = "Kullanım sınırı";
 "Usage limits and reset countdowns for one saved account." = "Kayıtlı bir hesap için kullanım sınırları ve geri sayımları sıfırlama.";
 "Usage widget with a provider switcher." = "Sağlayıcı değiştiricili kullanım widget'ı.";
@@ -2703,3 +2701,5 @@
 "Leave blank to keep the saved credential." = "Kayıtlı kimlik bilgisini korumak için boş bırakın.";
 
 "No personal budget configured" = "Kişisel bütçe yapılandırılmadı";
+
+"monthly_daily_target_format" = "Sıfırlamaya kadar yetmesi için günde ≈ %@";

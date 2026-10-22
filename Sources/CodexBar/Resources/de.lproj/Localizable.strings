@@ -168,7 +168,7 @@
 "Local token history is unavailable or incomplete." = "Der lokale Token-Verlauf ist nicht verfügbar oder unvollständig.";
 "Could not add Codex account" = "Codex-Konto konnte nicht hinzugefügt werden";
 "Could not open Terminal for Gemini" = "Terminal für Gemini konnte nicht geöffnet werden";
-"Could not start claude /login" = "Claude /login konnte nicht gestartet werden";
+"Claude OAuth credentials read failed: CodexBar's Claude OAuth cache is temporarily unavailable in macOS Keychain. Check that the login keychain is unlocked in Keychain Access, then retry Refresh." = "Claude-OAuth-Zugangsdaten konnten nicht gelesen werden: Der Claude-OAuth-Cache von CodexBar ist im macOS-Schlüsselbund vorübergehend nicht verfügbar. Prüfe in der Schlüsselbundverwaltung, ob der Anmeldeschlüsselbund entsperrt ist, und aktualisiere dann erneut.";
 "Could not start codex login" = "Die Codex-Anmeldung konnte nicht gestartet werden";
 "Could not switch system account" = "Das Systemkonto konnte nicht gewechselt werden";
 "Credits" = "Credits";
@@ -619,7 +619,6 @@
 
 /* Display Pane */
 "menu_bar_style_title" = "Menüleistenstil";
-"menu_bar_style_subtitle" = "Legt fest, wie das Menüleistenelement dargestellt wird.";
 "menu_bar_inactive_display_contrast_title" = "Sichtbarkeit auf inaktiven Displays verbessern";
 "menu_bar_inactive_display_contrast_subtitle" = "Verwendet eine kontrastreiche Darstellung, damit Symbol und Messwert auf anderen Displays lesbar bleiben.";
 "menu_bar_style_critters" = "Kreaturen";
@@ -1222,6 +1221,7 @@
 "Password" = "Passwort";
 "%@ authentication is disabled." = "Die %@-Authentifizierung ist deaktiviert.";
 "%@ cookies are disabled." = "%@ Cookies sind deaktiviert.";
+"%@ is unavailable. Edit the widget to choose a provider." = "%@ ist nicht verfügbar. Bearbeite das Widget, um einen Anbieter auszuwählen.";
 "%@ web API access is disabled." = "%@ Web-API-Zugriff ist deaktiviert.";
 "Disable %@ dashboard cookie usage." = "Deaktivieren Sie die Verwendung von Dashboard-Cookies für %@.";
 "Keychain access is disabled in Advanced, so browser cookie import is unavailable." = "Der Schlüsselbundzugriff ist in \"Erweitert\" deaktiviert, daher ist der Browser-Cookie-Import nicht verfügbar.";
@@ -1287,7 +1287,6 @@
 "Windsurf session JSON bundle" = "JSON-Paket für Windsurf-Sitzungen";
 "Workspace ID" = "Arbeitsbereichs-ID";
 "Your StepFun platform password. Used to login and obtain a session token." = "Ihr Passwort für die StepFun-Plattform. Wird verwendet, um sich anzumelden und ein Sitzungstoken zu erhalten.";
-"claude /login exited with status %d." = "Claude /login wurde mit dem Status %d beendet.";
 "codex login exited with status %d." = "Codex-Anmeldung mit Status %d beendet.";
 "Cookie: …\n\nor paste a cURL capture from the Abacus AI dashboard" = "Cookie: …\n\noder fügen Sie eine cURL-Erfassung aus dem Abacus AI-Dashboard ein";
 "Cookie: …\n\nor paste the __Secure-next-auth.session-token value" = "Cookie: …\n\noder fügen Sie den Wert __Secure-next-auth.session-token ein";
@@ -1413,6 +1412,7 @@
 /* Menu bar layout editor */
 "menu_bar_layout_title" = "Layout";
 "menu_bar_layout_footer" = "Ziehe Bausteine, um die Menüleiste anzuordnen. Klicke einen Baustein zum Anhängen an; wähle einen platzierten Baustein und drücke die Löschtaste, um ihn zu entfernen.";
+"menu_bar_layout_footer_requires_icon_and_percent" = "Das Layout gilt nur für den Menüleistenstil „%@“. Wähle diesen Stil oben aus, um es zu bearbeiten.";
 "menu_bar_layout_group_identity" = "Identität";
 "menu_bar_layout_group_usage" = "Verwendung";
 "menu_bar_layout_group_time" = "Zeit";
@@ -1802,6 +1802,7 @@
 "Details for %@" = "Details für %@";
 "EST. %@" = "GESCH. %@";
 "Enable Antigravity provider" = "Aktivieren Sie den Antigravity-Anbieter";
+"Enable a provider in CodexBar → Settings → Providers." = "Aktiviere einen Anbieter in CodexBar → Einstellungen → Anbieter.";
 "Enable account widgets in CodexBar → Settings → Menu → Widgets. Then edit this widget to choose an account." = "Aktivieren Sie Konto-Widgets unter CodexBar → Einstellungen → Menü → Widgets. Bearbeiten Sie dann dieses Widget, um ein Konto auszuwählen.";
 "Error: %@" = "Fehler: %@";
 "Examples: alt+cmd+2, shift+right. Refresh (cmd+r), Settings (cmd+,) and Quit (cmd+q) are reserved." = "Beispiele: alt+cmd+2, shift+right. Aktualisieren (cmd+r), Einstellungen (cmd+,) und Beenden (cmd+q) sind reserviert.";
@@ -2016,10 +2017,7 @@
 "Top models:" = "Top-Modelle:";
 "Two quota burn-down charts in one tile." = "Zwei Kontingent-Burndown-Diagramme in einer Kachel.";
 "Usage & spend come from your console.groq.com browser session automatically. An API key is optional and only adds Enterprise Prometheus metrics." = "Nutzung und Ausgaben erfolgen automatisch aus Ihrer console.groq.com-Browsersitzung. Ein API-Schlüssel ist optional und fügt nur Enterprise Prometheus Kennzahl hinzu.";
-"Usage data appears after a refresh." = "Nutzungsdaten werden nach einer Aktualisierung angezeigt.";
-"Usage data will appear once the app refreshes." = "Nutzungsdaten werden angezeigt, sobald die App aktualisiert wird.";
 "Usage history chart with recent totals." = "Nutzungsverlaufsdiagramm mit aktuellen Gesamtwerten.";
-"Usage history will appear after a refresh." = "Der Nutzungsverlauf wird nach einer Aktualisierung angezeigt.";
 "Usage limit" = "Nutzungsbeschränkung";
 "Usage limits and reset countdowns for one saved account." = "Nutzungsbeschränkungen und Reset-Countdowns für ein gespeichertes Konto.";
 "Usage widget with a provider switcher." = "Nutzungs-Widget mit Anbieterwechsel.";
@@ -2698,3 +2696,5 @@
 "Leave blank to keep the saved credential." = "Leer lassen, um die gespeicherten Zugangsdaten beizubehalten.";
 
 "No personal budget configured" = "Kein persönliches Budget konfiguriert";
+
+"monthly_daily_target_format" = "≈ %@ / Tag, damit es bis zum Zurücksetzen reicht";
